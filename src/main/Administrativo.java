@@ -17,49 +17,63 @@ package main;
  * específicos para cada tipo de usuario, pero están cerradas para modificaciones que 
  * afecten a la clase "Usuario" base.
  */
-public class Administrativo extends Usuario {
+
+public class Administrativo extends Usuario{
     private String area;
     private String experienciaPrevia;
 
-    // Constructor con validaciones
-    public Administrativo(String nombre, String fechaNacimiento, int run, String area, String experienciaPrevia) {
-        super(nombre, fechaNacimiento, run);
-        setArea(area);
-        setExperienciaPrevia(experienciaPrevia);
+    // Constructor sin parámetros
+    public Administrativo() {}
+
+    // Constructor con todos los parámetros
+    public Administrativo(String nombre, String fechaDeNacimiento, int run, String area, String experienciaPrevia) {
+    	super(nombre, fechaDeNacimiento, run);
+        setArea(area); // Validación dentro del setter
+        setExperienciaPrevia(experienciaPrevia); // Validación dentro del setter
     }
 
-    // Validación y asignación del área
+	// Métodos accesores (getters) y mutadores(setters).
+	public String getArea() {
+		return area;
+	}
+
     public void setArea(String area) {
-        if (area == null || area.length() < 5 || area.length() > 20) {
+        if (area != null && area.length() >= 5 && area.length() <= 20) {
+            this.area = area;
+        } else {
             throw new IllegalArgumentException("El área debe tener entre 5 y 20 caracteres.");
         }
-        this.area = area;
     }
 
-    public String getArea() {
-        return area;
-    }
+	public String getExperienciaPrevia() {
+		return experienciaPrevia;
+	}
 
-    // Validación y asignación de la experiencia previa
     public void setExperienciaPrevia(String experienciaPrevia) {
-        if (experienciaPrevia != null && experienciaPrevia.length() > 100) {
-            throw new IllegalArgumentException("La experiencia previa no puede exceder los 100 caracteres.");
+        if (experienciaPrevia == null || experienciaPrevia.length() <= 100) {
+            this.experienciaPrevia = experienciaPrevia;
+        } else {
+            throw new IllegalArgumentException("La experiencia previa debe tener un máximo de 100 caracteres.");
         }
-        this.experienciaPrevia = experienciaPrevia;
     }
+	
+	// Sobrescribir el método analizarUsuario
+	@Override
+	public void analizarUsuario() {
+		// TODO Auto-generated method stub
+		super.analizarUsuario();
+        System.out.println("Área: " + area);
+        System.out.println("Experiencia Previa: " + experienciaPrevia);
+	}
 
-    public String getExperienciaPrevia() {
-        return experienciaPrevia;
-    }
-
-    @Override
+	@Override
     public String toString() {
-        return "Administrativo{" +
-                "area='" + area + '\'' +
-                ", experienciaPrevia='" + experienciaPrevia + '\'' +
-                ", nombre='" + getNombre() + '\'' +
-                ", fechaNacimiento='" + getFechaNacimiento() + '\'' +
-                ", run=" + getRun() +
+        return "Administrativo {" +
+        		"Nombre='" + getNombre() + '\'' +
+        		", Fecha de nacimiento='" + getFechaDeNacimiento() + '\'' +
+        		", RUN='" + getRun() + '\'' +
+                ", Área='" + area + '\'' +
+                ", Experiencia Previa='" + experienciaPrevia + '\'' +
                 '}';
-    }
+	}
 }

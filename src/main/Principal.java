@@ -1,9 +1,6 @@
 package main;
 
 import java.util.Scanner;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.Date;
 /**
  * Esta clase contiene el método main() del programa, que es el punto de entrada de la aplicación.
  * Aquí se inicializa una instancia de la clase Contenedor, y se proporciona un menú para
@@ -13,199 +10,221 @@ import java.util.Date;
  *  
  * @author Rodrigo Rojas, Jorge Montoya, Ana Andrade, Carlos Quezada y Rodrigo Gonzales.
  */
+
 public class Principal {
     public static void main(String[] args) {
         Contenedor contenedor = new Contenedor();
         Scanner scanner = new Scanner(System.in);
-        int option;
+        int opcion;
 
         do {
-            System.out.println("Menú Principal:");
-            System.out.println("1. Almacenar cliente");
-            System.out.println("2. Almacenar profesional");
-            System.out.println("3. Almacenar administrativo");
-            System.out.println("4. Almacenar capacitación");
-            System.out.println("5. Eliminar usuario");
-            System.out.println("6. Listar usuarios");
-            System.out.println("7. Listar usuarios por tipo");
-            System.out.println("8. Listar capacitaciones");
+            System.out.println("Menú Principal");
+            System.out.println("1. Almacenar Cliente");
+            System.out.println("2. Almacenar Profesional");
+            System.out.println("3. Almacenar Administrativo");
+            System.out.println("4. Almacenar Capacitación");
+            System.out.println("5. Eliminar Usuario");
+            System.out.println("6. Listar Usuarios");
+            System.out.println("7. Listar Usuarios por Tipo");
+            System.out.println("8. Listar Capacitaciones");
             System.out.println("9. Salir");
             System.out.print("Seleccione una opción: ");
-            option = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
+            opcion = scanner.nextInt();
+            scanner.nextLine(); // Consumes the newline
 
-            switch (option) {
-                case 1:
-                    // Almacenar cliente
-                    System.out.print("Nombre: ");
-                    String nombre = scanner.nextLine();
+            switch (opcion) {
+            case 1:
+                Cliente nuevoCliente = crearCliente(scanner);
+                contenedor.almacenarCliente(nuevoCliente);
+                System.out.println("Cliente almacenado exitosamente.");
+                break;
 
-                    System.out.print("Fecha de nacimiento (DD/MM/AAAA): ");
-                    String fechaNacimiento = scanner.nextLine();
+            case 2:
+                Profesional nuevoProfesional = crearProfesional(scanner);
+                contenedor.almacenarProfesional(nuevoProfesional);
+                System.out.println("Profesional almacenado exitosamente.");
+                break;
 
-                    System.out.print("RUN (número): ");
-                    int run = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
+            case 3:
+                Administrativo nuevoAdministrativo = crearAdministrativo(scanner);
+                contenedor.almacenarAdministrativo(nuevoAdministrativo);
+                System.out.println("Administrativo almacenado exitosamente.");
+                break;
 
-                    System.out.print("RUT: ");
-                    int rut = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
+            case 4:
+                Capacitacion nuevaCapacitacion = crearCapacitacion(scanner);
+                contenedor.almacenarCapacitacion(nuevaCapacitacion);
+                System.out.println("Capacitación almacenada exitosamente.");
+                break;
 
-                    System.out.print("Nombres: ");
-                    String nombres = scanner.nextLine();
+            case 5:
+                System.out.print("Ingrese el RUN del usuario a eliminar: ");
+                int runEliminar = scanner.nextInt();
+                scanner.nextLine(); // Consumir la nueva línea
+                contenedor.eliminarUsuario(runEliminar);
+                System.out.println("Usuario eliminado exitosamente.");
+                break;
 
-                    System.out.print("Apellidos: ");
-                    String apellidos = scanner.nextLine();
+            case 6:
+                System.out.println("Listado de Usuarios:");
+                contenedor.listarUsuarios();
+                break;
 
-                    System.out.print("Teléfono: ");
-                    String telefono = scanner.nextLine();
 
-                    System.out.print("AFP: ");
-                    String afp = scanner.nextLine();
+            case 7:
+                System.out.print("Ingrese el tipo de usuario (Cliente, Profesional, Administrativo): ");
+                String tipoUsuario = scanner.nextLine().trim();
+                switch (tipoUsuario.toLowerCase()) {
+                    case "cliente":
+                        System.out.println("Listado de Clientes:");
+                        contenedor.listarUsuariosPorTipo(Cliente.class);
+                        break;
+                    case "profesional":
+                        System.out.println("Listado de Profesionales:");
+                        contenedor.listarUsuariosPorTipo(Profesional.class);
+                        break;
+                    case "administrativo":
+                        System.out.println("Listado de Administrativos:");
+                        contenedor.listarUsuariosPorTipo(Administrativo.class);
+                        break;
+                    default:
+                        System.out.println("Tipo de usuario no reconocido.");
+                        break;
+                }
+                break;
 
-                    System.out.print("Sistema de salud (1 para Fonasa, 2 para Isapre): ");
-                    int sistemaSalud = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
+            case 8:
+                System.out.println("Listado de Capacitaciones:");
+                contenedor.listarCapacitaciones();
+                break;
 
-                    System.out.print("Dirección: ");
-                    String direccion = scanner.nextLine();
+            case 9:
+                System.out.println("Saliendo del programa...");
+                break;
 
-                    System.out.print("Comuna: ");
-                    String comuna = scanner.nextLine();
+            default:
+                System.out.println("Opción incorrecta. Por favor, intente nuevamente.");
+                break;
+        }
+    } while (opcion != 9);
 
-                    System.out.print("Edad: ");
-                    int edad = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
+    scanner.close();
+}
+    // Métodos auxiliares para crear instancias de cada tipo
+    private static Cliente crearCliente(Scanner scanner) {
+    	System.out.print("Ingrese el nombre del cliente: ");
+        String nombre = scanner.nextLine();
 
-                    Cliente cliente = new Cliente(nombre, fechaNacimiento, run, rut, nombres, apellidos, telefono, afp, sistemaSalud, direccion, comuna, edad);
-                    contenedor.almacenarUsuario(cliente);
-                    break;
+        System.out.print("Ingrese la fecha de nacimiento del cliente (DD/MM/AAAA): ");
+        String fechaNacimiento = scanner.nextLine();
 
-                case 2:
-                    // Almacenar profesional
-                    System.out.print("Nombre: ");
-                    String nombreProf = scanner.nextLine();
+        System.out.print("Ingrese el RUN del cliente: ");
+        int run = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea
+        
+        System.out.print("Ingrese el RUT del cliente: ");
+        int rut = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea
 
-                    System.out.print("Fecha de nacimiento (DD/MM/AAAA): ");
-                    String fechaNacimientoProf = scanner.nextLine();
+        System.out.print("Ingrese los nombres del cliente: ");
+        String nombres = scanner.nextLine();
 
-                    System.out.print("RUN (número): ");
-                    int runProf = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
+        System.out.print("Ingrese los apellidos del cliente: ");
+        String apellidos = scanner.nextLine();
 
-                    System.out.print("Título: ");
-                    String titulo = scanner.nextLine();
+        System.out.print("Ingrese el teléfono del cliente: ");
+        String telefono = scanner.nextLine();
 
-                    System.out.print("Fecha de ingreso (DD/MM/AAAA): ");
-                    String fechaIngreso = scanner.nextLine();
+        System.out.print("Ingrese la AFP del cliente: ");
+        String afp = scanner.nextLine();
 
-                    Profesional profesional = new Profesional(nombreProf, fechaNacimientoProf, runProf, titulo, fechaIngreso);
-                    contenedor.almacenarUsuario(profesional);
-                    break;
+        System.out.print("Ingrese el sistema de salud (1 para Fonasa, 2 para Isapre): ");
+        int sistemaSalud = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea
 
-                case 3:
-                    // Almacenar administrativo
-                    System.out.print("Nombre: ");
-                    String nombreAdmin = scanner.nextLine();
+        System.out.print("Ingrese la dirección del cliente: ");
+        String direccion = scanner.nextLine();
 
-                    System.out.print("Fecha de nacimiento (DD/MM/AAAA): ");
-                    String fechaNacimientoAdmin = scanner.nextLine();
+        System.out.print("Ingrese la comuna del cliente: ");
+        String comuna = scanner.nextLine();
 
-                    System.out.print("RUN (número): ");
-                    int runAdmin = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
+        System.out.print("Ingrese la edad del cliente: ");
+        int edad = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea
 
-                    System.out.print("Área: ");
-                    String area = scanner.nextLine();
-
-                    System.out.print("Experiencia previa: ");
-                    String experienciaPrevia = scanner.nextLine();
-
-                    Administrativo administrativo = new Administrativo(nombreAdmin, fechaNacimientoAdmin, runAdmin, area, experienciaPrevia);
-                    contenedor.almacenarUsuario(administrativo);
-                    break;
-
-                case 4:
-                    // Almacenar capacitación
-                    System.out.print("Identificador: ");
-                    int identificador = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
-
-                    System.out.print("RUT Cliente: ");
-                    int rutCliente = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
-
-                    System.out.print("Día (lunes a domingo): ");
-                    String dia = scanner.nextLine();
-
-                    System.out.print("Hora (HH:MM): ");
-                    String hora = scanner.nextLine();
-
-                    System.out.print("Lugar: ");
-                    String lugar = scanner.nextLine();
-
-                    System.out.print("Duración: ");
-                    String duracion = scanner.nextLine();
-
-                    System.out.print("Cantidad de asistentes: ");
-                    int cantidadAsistentes = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
-
-                    Capacitacion capacitacion = new Capacitacion(identificador, rutCliente, dia, hora, lugar, duracion, cantidadAsistentes);
-                    contenedor.almacenarCapacitacion(capacitacion);
-                    break;
-
-                case 5:
-                    // Eliminar usuario
-                    System.out.print("RUN del usuario a eliminar: ");
-                    int runEliminar = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
-
-                    contenedor.eliminarUsuario(runEliminar);
-                    break;
-
-                case 6:
-                    // Listar usuarios
-                    contenedor.listarUsuarios();
-                    break;
-
-                case 7:
-                    // Listar usuarios por tipo
-                	 System.out.print("Ingrese el tipo de usuario (Cliente, Profesional, Administrativo): ");
-                     String tipoUsuario = scanner.nextLine().trim();
-                     switch (tipoUsuario.toLowerCase()) {
-                         case "cliente":
-                             System.out.println("Listado de Clientes:");
-                             contenedor.listarUsuariosPorTipo(Cliente.class);
-                             break;
-                         case "profesional":
-                             System.out.println("Listado de Profesionales:");
-                             contenedor.listarUsuariosPorTipo(Profesional.class);
-                             break;
-                         case "administrativo":
-                             System.out.println("Listado de Administrativos:");
-                             contenedor.listarUsuariosPorTipo(Administrativo.class);
-                             break;
-                         default:
-                             System.out.println("Tipo de usuario no reconocido.");
-                             break;
-                     }
-                     break;
-
-                case 8:
-                    // Listar capacitaciones
-                    contenedor.listarCapacitaciones();
-                    break;
-
-                case 9:
-                    System.out.println("Saliendo...");
-                    break;
-
-                default:
-                    System.out.println("Opción no válida. Inténtelo de nuevo.");
-            }
-        } while (option != 9);
-
-        scanner.close();
+        return new Cliente(nombre, fechaNacimiento, run, rut, nombres, apellidos, telefono, afp, sistemaSalud, direccion, comuna, edad);
     }
+    private static Profesional crearProfesional(Scanner scanner) {
+        System.out.print("Ingrese el nombre del profesional: ");
+        String nombre = scanner.nextLine();
+
+        System.out.print("Ingrese la fecha de nacimiento del profesional (DD/MM/AAAA): ");
+        String fechaNacimiento = scanner.nextLine();
+
+        System.out.print("Ingrese el RUN del profesional: ");
+        int run = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea
+
+        System.out.print("Ingrese el título del profesional: ");
+        String titulo = scanner.nextLine();
+
+        System.out.print("Ingrese la fecha de ingreso del profesional (DD/MM/AAAA): ");
+        String fechaIngreso = scanner.nextLine();
+
+        return new Profesional(nombre, fechaNacimiento, run, titulo, fechaIngreso);
+    }
+
+    private static Administrativo crearAdministrativo(Scanner scanner) {
+        System.out.print("Ingrese el nombre del administrativo: ");
+        String nombre = scanner.nextLine();
+
+        System.out.print("Ingrese la fecha de nacimiento del administrativo (DD/MM/AAAA): ");
+        String fechaNacimiento = scanner.nextLine();
+
+        System.out.print("Ingrese el RUN del administrativo: ");
+        int run = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea
+
+        System.out.print("Ingrese el área del administrativo: ");
+        String area = scanner.nextLine();
+
+        System.out.print("Ingrese la experiencia previa del administrativo: ");
+        String experienciaPrevia = scanner.nextLine();
+
+        return new Administrativo(nombre, fechaNacimiento, run, area, experienciaPrevia);
+    }
+    private static Capacitacion crearCapacitacion(Scanner scanner) {
+        System.out.print("Ingrese el identificador de la capacitación: ");
+        int identificador = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea
+
+        System.out.print("Ingrese el RUT del cliente: ");
+        int rutCliente = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea
+
+        System.out.print("Ingrese el día de la capacitación (ej: Lunes): ");
+        String dia = scanner.nextLine();
+
+        System.out.print("Ingrese la hora de la capacitación (HH:MM): ");
+        String hora = scanner.nextLine();
+
+        System.out.print("Ingrese el lugar de la capacitación: ");
+        String lugar = scanner.nextLine();
+
+        System.out.print("Ingrese la duración de la capacitación: ");
+        String duracion = scanner.nextLine();
+
+        System.out.print("Ingrese la cantidad de asistentes: ");
+        int cantidadAsistentes = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea
+
+        return new Capacitacion(identificador, rutCliente, dia, hora, lugar, duracion, cantidadAsistentes);
+        
+        
+    }
+    
+    public static void mostrarDatosUsuario(Usuario usuario) {
+    	usuario.toString();
+    }
+    
 }

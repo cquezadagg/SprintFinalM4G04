@@ -1,7 +1,4 @@
 package main;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 /**
  * Esta clase representa un usuario genérico que tiene acceso a la plataforma. 
  * Es la clase base de la cual heredan otros tipos de usuarios como Cliente, Profesional y Administrativo.
@@ -27,73 +24,89 @@ import java.text.SimpleDateFormat;
  * tipo "Usuario" o "Asesoria". Esto garantiza que la substitución de instancias
  * de la clase "Usuario" por cualquiera de sus subclases no romperá la funcionalidad del sistema.
  */
-public class Usuario {
-    private String nombre;
-    private String fechaNacimiento;  // Declarado como String
-    private int run;
 
-    // Constructor que recibe todos los atributos
-    public Usuario(String nombre, String fechaNacimiento, int run) throws IllegalArgumentException {
-        setNombre(nombre);
-        setFechaNacimiento(fechaNacimiento);
-        setRun(run);
-    }
 
-    // Validación y asignación del nombre
-    public void setNombre(String nombre) {
-        if (nombre == null || nombre.length() < 10 || nombre.length() > 50) {
+public class Usuario implements Asesoria{
+
+	private String nombre;
+	private String fechaDeNacimiento;
+	private int run;
+	
+	
+	// Constructor sin parametros.
+	public Usuario() {
+		
+	}
+	
+	// Constructor con parametros.
+	public Usuario(String nombre, String fechaDeNacimiento, int run) {
+	       setNombre(nombre); // Validación dentro del setter
+	       setFechaDeNacimiento(fechaDeNacimiento); // Validación dentro del setter
+	       setRun(run); // Validación dentro del setter
+	}
+
+	
+	// Métodos accesores (getters) y mutadores(setters).
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+        if (nombre != null && nombre.length() >= 10 && nombre.length() <= 50) {
+            this.nombre = nombre;
+        } else {
             throw new IllegalArgumentException("El nombre debe tener entre 10 y 50 caracteres.");
         }
-        this.nombre = nombre;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
+	public String getFechaDeNacimiento() {
+		return fechaDeNacimiento;
+	}
 
-    // Validación y asignación de la fecha de nacimiento en formato DD/MM/AAAA
-    public void setFechaNacimiento(String fechaNacimiento) {
-        if (!esFechaValida(fechaNacimiento)) {
-            throw new IllegalArgumentException("La fecha de nacimiento debe tener el formato DD/MM/AAAA.");
+	public void setFechaDeNacimiento(String fechaDeNacimiento) {
+        if (fechaDeNacimiento != null) {
+            this.fechaDeNacimiento = fechaDeNacimiento;
+        } else {
+            throw new IllegalArgumentException("La fecha de nacimiento es obligatoria.");
         }
-        this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
-    }
+	public int getRun() {
+		return run;
+	}
 
-    // Validación y asignación del RUN
     public void setRun(int run) {
-        if (run <= 0 || run >= 99999999) {
+        if (run > 0 && run < 99999999) {
+            this.run = run;
+        } else {
             throw new IllegalArgumentException("El RUN debe ser un número menor a 99.999.999.");
         }
-        this.run = run;
     }
 
-    public int getRun() {
-        return run;
+	// Método adicional
+    public String mostrarEdad() {
+        // Supongamos que la fecha de nacimiento se proporciona en el formato "dd-mm-yyyy"
+        int yearOfBirth = Integer.parseInt(fechaDeNacimiento.split("-")[2]);
+        int currentYear = java.time.Year.now().getValue();
+        int edad = currentYear - yearOfBirth;
+        return "El usuario tiene " + edad + " años";
     }
+    
+    
+    // Implementación del método de la interfaz Asesoria
+	@Override
+	public void analizarUsuario() {
+		// TODO Auto-generated method stub
+		System.out.println("Nombre de usuario: " + nombre + " y RUT del usuario:" + run);
+	}
 
-    // Método auxiliar para validar la fecha en formato DD/MM/AAAA
-    private boolean esFechaValida(String fecha) {
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        formatoFecha.setLenient(false); // Para asegurar que la fecha sea estrictamente válida
-        try {
-            formatoFecha.parse(fecha);
-            return true;
-        } catch (ParseException e) {
-            return false;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario{" +
-        		", run=" + run +
-                ", nombre='" + nombre + '\'' +
-                ", fechaNacimiento='" + fechaNacimiento + '\'' +
-                
+	@Override
+	   public String toString() {
+        return "Usuario {" +
+                "Nombre='" + nombre + '\'' +
+                ", Fecha de Nacimiento='" + fechaDeNacimiento + '\'' +
+                ", RUN='" + run + '\'' +
                 '}';
-    }
+	}
+	
 }

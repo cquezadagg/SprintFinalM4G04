@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Esta clase actúa como un contenedor para almacenar y gestionar listas
  * de usuarios (Asesoria) y capacitaciones (Capacitacion). Proporciona métodos
@@ -12,48 +13,78 @@ import java.util.List;
  *  
  * @author Rodrigo Rojas, Jorge Montoya, Ana Andrade, Carlos Quezada y Rodrigo Gonzales.
  */
+
 public class Contenedor {
-    private List<Usuario> usuarios;
+    private List<Asesoria> asesorias;
     private List<Capacitacion> capacitaciones;
 
+    // Constructor sin parámetros que inicializa las listas
     public Contenedor() {
-        usuarios = new ArrayList<>();
-        capacitaciones = new ArrayList<>();
+        this.asesorias = new ArrayList<>();
+        this.capacitaciones = new ArrayList<>();
     }
-
+	
+    // Método para almacenar un usuario
     public void almacenarUsuario(Usuario usuario) {
-        usuarios.add(usuario);
+        asesorias.add(usuario);
+    }
+    
+    // Método para almacenar un cliente
+    public void almacenarCliente(Cliente cliente) {
+        asesorias.add(cliente);
     }
 
+    // Método para almacenar un profesional
+    public void almacenarProfesional(Profesional profesional) {
+        asesorias.add(profesional);
+    }
+
+    // Método para almacenar un administrativo
+    public void almacenarAdministrativo(Administrativo administrativo) {
+        asesorias.add(administrativo);
+    }
+
+    // Método para almacenar una capacitación
     public void almacenarCapacitacion(Capacitacion capacitacion) {
         capacitaciones.add(capacitacion);
     }
 
+    // Método para eliminar un usuario por su RUN
     public void eliminarUsuario(int run) {
-        usuarios.removeIf(usuario -> usuario.getRun() == run);
+        asesorias.removeIf(asesoria -> {
+            if (asesoria instanceof Usuario) {
+                return ((Usuario) asesoria).getRun() == run;
+            }
+            return false;
+        });
     }
-
-    // Método modificado para listar solo los datos del usuario: RUN, Nombre, y Fecha de Nacimiento
+    
+    // Método para listar todos los usuarios
     public void listarUsuarios() {
-        System.out.println("Lista de usuarios:");
-        for (Usuario usuario : usuarios) {
-            System.out.println("RUN: " + usuario.getRun());
-            System.out.println("Nombre: " + usuario.getNombre());
-            System.out.println("Fecha de Nacimiento: " + usuario.getFechaNacimiento());
-            System.out.println("----------------------------");
+        for (Asesoria asesoria : asesorias) {
+            if (asesoria instanceof Usuario) {
+                System.out.println(asesoria.toString());
+            }
         }
     }
 
+    // Método para listar usuarios por tipo
+    public void listarUsuariosPorTipo(Class<?> tipo) {
+        for (Asesoria asesoria : asesorias) {
+            if (tipo.isInstance(asesoria)) {
+                System.out.println(asesoria.toString());
+            }
+        }
+    }
+
+    // Método para listar todas las capacitaciones junto con los datos del cliente asociado
     public void listarCapacitaciones() {
         for (Capacitacion capacitacion : capacitaciones) {
-            System.out.println(capacitacion);
-        }
-    }
-
-    public void listarUsuariosPorTipo(Class<?> tipo) {
-        for (Usuario usuario : usuarios) {
-            if (usuario.getClass() == tipo) {
-                System.out.println(usuario);
+            System.out.println(capacitacion.toString());
+            for (Asesoria asesoria : asesorias) {
+                if (asesoria instanceof Cliente && ((Cliente) asesoria).getRut() == capacitacion.getRutCliente()) {
+                    System.out.println("Cliente asociado: " + ((Cliente) asesoria).toString());
+                }
             }
         }
     }

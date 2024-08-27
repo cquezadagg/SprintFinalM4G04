@@ -14,6 +14,7 @@ package main;
  * analizarUsuario(), que es lo suficientemente específico para ser implementado por
  *  cualquier clase que extienda de "Usuario".
  */
+
 public interface Asesoria {
-    void analizarUsuario();
+	void analizarUsuario();
 }

@@ -12,101 +12,104 @@ package main;
 public class Revision {
     private int identificadorRevision;
     private int identificadorVisitaTerreno;
-    private String nombreAlusivo;
-    private String detalleParaRevisar;
+    private String nombreRevision;
+    private String detalle;
     private int estado;
 
-    // Constructor con validaciones
-    public Revision(int identificadorRevision, int identificadorVisitaTerreno, String nombreAlusivo, String detalleParaRevisar, int estado) {
-        setIdentificadorRevision(identificadorRevision);
-        setIdentificadorVisitaTerreno(identificadorVisitaTerreno);
-        setNombreAlusivo(nombreAlusivo);
-        setDetalleParaRevisar(detalleParaRevisar);
-        setEstado(estado);
-    }
+    // Constructor sin parámetros
+    public Revision() {}
 
-    // Validación y asignación del identificador de la revisión
+    // Constructor con todos los parámetros
+    public Revision(int identificadorRevision, int identificadorVisitaTerreno, String nombreRevision, String detalle, int estado) {
+        setIdentificadorRevision(identificadorRevision); // Validación dentro del setter
+        setIdentificadorVisitaTerreno(identificadorVisitaTerreno); // Validación dentro del setter
+        setNombreRevision(nombreRevision); // Validación dentro del setter
+        setDetalle(detalle); // Validación dentro del setter
+        setEstado(estado); // Validación dentro del setter
+    }
+    
+	// Métodos accesores (getters) y mutadores(setters).
+    public int getIdentificadorRevision() {
+		return identificadorRevision;
+	}
+
     public void setIdentificadorRevision(int identificadorRevision) {
-        if (identificadorRevision <= 0) {
+        if (identificadorRevision > 0) {
+            this.identificadorRevision = identificadorRevision;
+        } else {
             throw new IllegalArgumentException("El identificador de la revisión debe ser un número positivo.");
         }
-        this.identificadorRevision = identificadorRevision;
-    }
-
-    public int getIdentificadorRevision() {
-        return identificadorRevision;
-    }
-
-    // Validación y asignación del identificador de la visita en terreno
-    public void setIdentificadorVisitaTerreno(int identificadorVisitaTerreno) {
-        if (identificadorVisitaTerreno <= 0) {
-            throw new IllegalArgumentException("El identificador de la visita en terreno debe ser un número positivo.");
-        }
-        this.identificadorVisitaTerreno = identificadorVisitaTerreno;
     }
 
     public int getIdentificadorVisitaTerreno() {
         return identificadorVisitaTerreno;
     }
 
-    // Validación y asignación del nombre alusivo a la revisión
-    public void setNombreAlusivo(String nombreAlusivo) {
-        if (nombreAlusivo == null || nombreAlusivo.length() < 10 || nombreAlusivo.length() > 50) {
-            throw new IllegalArgumentException("El nombre alusivo a la revisión debe tener entre 10 y 50 caracteres.");
+    public void setIdentificadorVisitaTerreno(int identificadorVisitaTerreno) {
+        if (identificadorVisitaTerreno > 0) {
+            this.identificadorVisitaTerreno = identificadorVisitaTerreno;
+        } else {
+            throw new IllegalArgumentException("El identificador de la visita en terreno debe ser un número positivo.");
         }
-        this.nombreAlusivo = nombreAlusivo;
     }
 
-    public String getNombreAlusivo() {
-        return nombreAlusivo;
-    }
+	public String getNombreRevision() {
+		return nombreRevision;
+	}
 
-    // Validación y asignación del detalle para revisar
-    public void setDetalleParaRevisar(String detalleParaRevisar) {
-        if (detalleParaRevisar != null && detalleParaRevisar.length() > 100) {
-            throw new IllegalArgumentException("El detalle para revisar no puede exceder los 100 caracteres.");
+    public void setNombreRevision(String nombreRevision) {
+        if (nombreRevision != null && nombreRevision.length() >= 10 && nombreRevision.length() <= 50) {
+            this.nombreRevision = nombreRevision;
+        } else {
+            throw new IllegalArgumentException("El nombre de la revisión debe tener entre 10 y 50 caracteres.");
         }
-        this.detalleParaRevisar = detalleParaRevisar;
     }
+    
+	public String getDetalle() {
+		return detalle;
+	}
 
-    public String getDetalleParaRevisar() {
-        return detalleParaRevisar;
+    public void setDetalle(String detalle) {
+        if (detalle == null || detalle.length() <= 100) {
+            this.detalle = detalle;
+        } else {
+            throw new IllegalArgumentException("El detalle debe tener un máximo de 100 caracteres.");
+        }
     }
+    
+	public int getEstado() {
+		return estado;
+	}
 
-    // Validación y asignación del estado
     public void setEstado(int estado) {
-        if (estado < 1 || estado > 3) {
+        if (estado >= 1 && estado <= 3) {
+            this.estado = estado;
+        } else {
             throw new IllegalArgumentException("El estado debe ser 1 (sin problemas), 2 (con observaciones) o 3 (no aprueba).");
         }
-        this.estado = estado;
     }
-
-    public int getEstado() {
-        return estado;
-    }
-
+    
     @Override
     public String toString() {
-        String estadoTexto;
+        return "Revisión {" +
+                "Identificador de la Revisión=" + identificadorRevision +
+                ", Identificador de la Visita en Terreno=" + identificadorVisitaTerreno +
+                ", Nombre de la Revisión='" + nombreRevision + '\'' +
+                ", Detalle='" + detalle + '\'' +
+                ", Estado=" + obtenerEstadoDescripcion() +
+                '}';
+    }
+ // Método para obtener una descripción legible del estado
+    private String obtenerEstadoDescripcion() {
         switch (estado) {
             case 1:
-                estadoTexto = "Sin problemas";
-                break;
+                return "Sin problemas";
             case 2:
-                estadoTexto = "Con observaciones";
-                break;
+                return "Con observaciones";
             case 3:
-                estadoTexto = "No aprueba";
-                break;
+                return "No aprueba";
             default:
-                estadoTexto = "Desconocido";
+                return "Desconocido";
         }
-        return "Revision{" +
-                "identificadorRevision=" + identificadorRevision +
-                ", identificadorVisitaTerreno=" + identificadorVisitaTerreno +
-                ", nombreAlusivo='" + nombreAlusivo + '\'' +
-                ", detalleParaRevisar='" + detalleParaRevisar + '\'' +
-                ", estado=" + estadoTexto +
-                '}';
     }
 }

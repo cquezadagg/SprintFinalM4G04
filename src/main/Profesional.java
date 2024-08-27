@@ -18,49 +18,62 @@ package main;
  * afecten a la clase "Usuario" base.
  */
 
-public class Profesional extends Usuario {
-    private String titulo;
-    private String fechaIngreso;
+public class Profesional extends Usuario{
+	private String titulo;
+	private String fechaIngreso;
 
-    // Constructor con validaciones
-    public Profesional(String nombre, String fechaNacimiento, int run, String titulo, String fechaIngreso) {
-        super(nombre, fechaNacimiento, run);
-        setTitulo(titulo);
-        setFechaIngreso(fechaIngreso);
-    }
+	// Constructor sin parámetros
+	public Profesional() {}
 
-    // Validación y asignación del título
+	// Constructor con todos los parámetros
+	   public Profesional(String nombre, String fechaDeNacimiento, int run, String titulo, String fechaIngreso) {
+		    super(nombre, fechaDeNacimiento, run);
+	        setTitulo(titulo); // Validación dentro del setter
+	        setFechaIngreso(fechaIngreso); // Validación dentro del setter
+	    }
+
+	// Métodos accesores (getters) y mutadores(setters).
+	public String getTitulo() {
+		return titulo;
+	}
+
     public void setTitulo(String titulo) {
-        if (titulo == null || titulo.length() < 10 || titulo.length() > 50) {
+        if (titulo != null && titulo.length() >= 10 && titulo.length() <= 50) {
+            this.titulo = titulo;
+        } else {
             throw new IllegalArgumentException("El título debe tener entre 10 y 50 caracteres.");
         }
-        this.titulo = titulo;
     }
 
-    public String getTitulo() {
-        return titulo;
-    }
+	public String getFechaIngreso() {
+		return fechaIngreso;
+	}
 
-    // Validación y asignación de la fecha de ingreso
     public void setFechaIngreso(String fechaIngreso) {
-        if (fechaIngreso == null || !fechaIngreso.matches("\\d{2}/\\d{2}/\\d{4}")) {
-            throw new IllegalArgumentException("La fecha de ingreso debe estar en el formato DD/MM/AAAA.");
+        if (fechaIngreso != null) {
+            this.fechaIngreso = fechaIngreso;
+        } else {
+            throw new IllegalArgumentException("La fecha de ingreso es obligatoria.");
         }
-        this.fechaIngreso = fechaIngreso;
     }
-
-    public String getFechaIngreso() {
-        return fechaIngreso;
-    }
+	
+	// Sobrescribir el método analizarUsuario
+	@Override
+	public void analizarUsuario() {
+		super.analizarUsuario();
+		System.out.println("Título: " + titulo);
+		System.out.println("Fecha de Ingreso: " + fechaIngreso);
+ 
+}
 
     @Override
     public String toString() {
-        return "Profesional{" +
-                "titulo='" + titulo + '\'' +
-                ", fechaIngreso='" + fechaIngreso + '\'' +
-                ", nombre='" + getNombre() + '\'' +
-                ", fechaNacimiento='" + getFechaNacimiento() + '\'' +
-                ", run=" + getRun() +
+        return "Profesional {" +
+        		"Nombre='" + getNombre() + '\'' +
+        		", Fecha de nacimiento='" + getFechaDeNacimiento() + '\'' +
+        		", RUN='" + getRun() + '\'' +
+                ", Título='" + titulo + '\'' +
+                ", Fecha de Ingreso='" + fechaIngreso + '\'' +
                 '}';
-    }
+	}
 }
