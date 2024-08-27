@@ -1,4 +1,4 @@
-# Integrantes: Rodrigo Rojas, Jorge Montoya, Ana Andrade, Carlos Quezada y Rodrigo Gonzáles.
+## Integrantes: Rodrigo Rojas, Jorge Montoya, Ana Andrade, Carlos Quezada y Rodrigo Gonzáles.
 ## Sistema de Gestión de Consultoría
 Este proyecto es un sistema de gestión para una empresa de consultoría de riesgos. El sistema permite gestionar diferentes tipos de usuarios (Clientes, Profesionales, Administrativos) y llevar un registro detallado de sus actividades y datos relacionados, como capacitaciones, accidentes, visitas en terreno  y revisiones.
 El sistema está desarrollado en Java y está diseñado para facilitar la administración y análisis de datos a través de un menú interactivo en la consola.
