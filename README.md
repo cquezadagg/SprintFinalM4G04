@@ -119,10 +119,12 @@ Métodos:
 
 	Clase principal que ejecuta un menú interactivo para realizar las operaciones sobre los usuarios y capacitaciones.
 ## Instalación
-1. Clona el repositorio en tu máquina local:
+1. Accede al repositorio con este link:
+   Puedes encontrar el repositorio [aquí](https://github.com/cquezadagg/SprintFinalM4G04)
+3. Clona el repositorio en tu máquina local:
    https://github.com/cquezadagg/SprintFinalM4G04.git
-3. Navega hasta el directorio del proyecto.
-4. Importa el proyecto dentro del IDE que utilizaras.
+4. Navega hasta el directorio del proyecto.
+5. Importa el proyecto dentro del IDE que utilizaras.
 ## Uso
 Para ejecutar este proyecto, necesitarás tener instalado lo siguiente:
 - Java Development Kit (JDK) 8 o superior.
@@ -145,5 +147,3 @@ Listar Capacitaciones: Muestra todas las capacitaciones registradas junto con lo
 Salir: Termina la ejecución del programa.
 ## Tecnologías Utilizadas
 - Java.
-## Link al repositorio
-Puedes encontrar el repositorio [aquí](https://github.com/cquezadagg/SprintFinalM4G04)
