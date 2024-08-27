@@ -26,7 +26,7 @@ Es imprescindible, mantener comunicación con los profesionales en todo momento,
 El proyecto está compuesto por las siguientes interfaz y clases:
 
 1. Clase Principal
-	Clase principal que ejecuta un menú interactivo para realizar las operaciones sobre los usuarios y capacitaciones. contiene el método main()
+	Clase que ejecuta un menú interactivo para realizar las operaciones sobre los usuarios y capacitaciones. contiene el método main()
 	Aquí se inicializa una instancia de la clase Contenedor, y se proporciona un menú para interactuar con el sistema, permitiendo gestionar usuarios 
 	y capacitaciones. Muestra menu principal.	
 	Métodos auxiliares para crear instancias de cada tipo: crearCliente(); crearProfesional(); crearAdministrativo(); crearCapacitacion(); 
@@ -43,7 +43,8 @@ El proyecto está compuesto por las siguientes interfaz y clases:
     Atributos:
         Nombre
         Fecha de nacimiento
-        Run		
+        Run
+   		
     Métodos:
 	Método constructor con y sin parametros 
    	Métodos accesores (getters) y mutadores(setters) de cada atributo.
@@ -51,75 +52,77 @@ El proyecto está compuesto por las siguientes interfaz y clases:
 	Implementación del método de la interfaz Asesoria: analizarUsuario()		
 	override del metodo toString
 	
-4. Clase Cliente (extiende Usuario)
+5. Clase Cliente (extiende Usuario)
 	Esta clase hereda de Usuario y representa a un cliente de la empresa.
 
-	Atributos:
-		Nombre
-		Fecha de nacimiento
-		run
-		rut
-		nombres
-		apellidos
-		telefono
-		afp
-		sistemaSalud
-		direccion
-		comuna
-		edad	
-	Métodos:
-		Métodos accesores (getters) y mutadores(setters)
-		Métodos: obtenerNombre(); obtenerSistemaSalud()
-		override del métodos: toString y analizarUsuario()
+    Atributos:
+	Nombre
+	Fecha de nacimiento
+	run
+	rut
+	nombres
+	apellidos
+	telefono
+	afp
+	sistemaSalud
+	direccion
+	comuna
+	edad
 	
-5. Clase Profesional (extiende Usuario)
+     Métodos:
+	Métodos accesores (getters) y mutadores(setters)
+	Métodos: obtenerNombre(); obtenerSistemaSalud()
+	override del métodos: toString y analizarUsuario()
+	
+7. Clase Profesional (extiende Usuario)
 	Esta clase hereda de Usuario y representa a un profesional que trabaja en la empresa.
 	
-	Atributos:
-		Nombre
-		Fecha de nacimiento
-		run
-		titulo
-		fecha de ingreso
+     Atributos:
+	Nombre
+	Fecha de nacimiento
+	run
+	titulo
+	fecha de ingreso
 
-	Métodos:		
-		Métodos Constructor con y sin parámetros
-		Métodos accesores (getters) y mutadores(setters) 
-		override del metodo toString y analizarUsuario()
+      Métodos:		
+	Métodos Constructor con y sin parámetros
+	Métodos accesores (getters) y mutadores(setters) 
+	override del metodo toString y analizarUsuario()
 	
-6. Clase Administrativo (extiende Usuario)
+8. Clase Administrativo (extiende Usuario)
 	Esta clase hereda de Usuario y representa a un administrativo que trabaja en la empresa.
 	
-	Atributos:
-		Nombre
-		Fecha de nacimiento
-		run
-		area
-		Experiencia previa	
-	Métodos:
-		Métodos Constructor con y sin parámetros
-		Métodos getters y setter		
-		override del metodo toString y analizarUsuario()
+      Atributos:
+	Nombre
+	Fecha de nacimiento
+	run
+	area
+	Experiencia previa
+	
+      Métodos:
+	Métodos Constructor con y sin parámetros
+	Métodos getters y setter		
+	override del metodo toString y analizarUsuario()
 		
-7. Clase Capacitación
+10. Clase Capacitación
 	Esta clase representa una capacitación organizada por la empresa para los clientes.
 
-	Atributos:
-		Identificador
-		RUT cliente
-		Día
-		Hora
-		Lugar
-		Duración
-		Cantidad de asistentes
+     Atributos:
+	Identificador
+	RUT cliente
+	Día
+	Hora
+	Lugar
+	Duración
+	Cantidad de asistentes
 	
-	Métodos:
-		Métodos Constructor con y sin parámetros
-		Métodos getters y setters
-		Método mostrarDetalle()
-		override del método toString
+     Métodos:
+	Métodos Constructor con y sin parámetros
+	Métodos getters y setters
+	Método mostrarDetalle()
+	override del método toString
 		
-8. Clase Accidente
+11. Clase Accidente
 	Esta clase representa un accidente reportado en la empresa.
 	
     Atributos:
@@ -129,14 +132,15 @@ El proyecto está compuesto por las siguientes interfaz y clases:
         Hora
         Lugar
         Origen
-        Consecuencias		
+        Consecuencias
+    	
    Métodos:	
 	Métodos Constructor con y sin parámetros
 	Métodos accesores (getters) y mutadores(setters)
 	Método para formatear la hora obtenerHoraFormateada()
 	override del método toString
 
-9. Clase VisitaEnTerreno
+13. Clase VisitaEnTerreno
 	Esta clase representa una visita en terreno realizada por un profesional a un cliente.
 
     Atributos:
@@ -152,7 +156,7 @@ El proyecto está compuesto por las siguientes interfaz y clases:
 	Métodos accesores (getters) y mutadores(setters)
 	override del método toString
 
-10. Clase Revisión
+14. Clase Revisión
 	Esta clase representa una revisión realizada en el contexto de una visita en terreno.
 	
     Atributos:
@@ -167,22 +171,22 @@ El proyecto está compuesto por las siguientes interfaz y clases:
 	override del metodo toString
 	Método para obtener una descripción legible del estado: obtenerEstadoDescripcion()  (Sin problemas, No aprueba, Con observaciones, Desconocido)
 
-11. Clase Contenedor
+15. Clase Contenedor
 	Esta clase actúa como un contenedor para almacenar y gestionar listas de usuarios (Asesoria) y capacitaciones (Capacitacion). Proporciona métodos
 	para agregar, eliminar y listar usuarios y capacitaciones, así como para realizar búsquedas y filtros en general	
 	
-	Métodos:
-		MétodoConstructor sin parámetros que inicializa las listas
+   Métodos:
+	MétodoConstructor sin parámetros que inicializa las listas
 				
-		Método para almacenar un cliente: almacenarCliente()		
-		Método para almacenar un usuario: almacenarUsuario() 
-		Método para almacenar un profesional: almacenarProfesional()
-		Método para almacenar un administrativo: almacenarAdministrativo	()	
-		Método para almacenar una capacitación: almacenarCapacitación()
-		Método para eliminar un usuario por su RUN: eliminarUsuario()
-		Método para listar todos los usuarios: listarUsuarios()
-		Método para listar usuarios por tipo: listarUsuariosPorTipo()
-		Método para listar todas las capacitaciones junto con los datos del cliente asociado: listarCapacitaciones()
+	Método para almacenar un cliente: almacenarCliente()		
+	Método para almacenar un usuario: almacenarUsuario() 
+	Método para almacenar un profesional: almacenarProfesional()
+	Método para almacenar un administrativo: almacenarAdministrativo	()	
+	Método para almacenar una capacitación: almacenarCapacitación()
+	Método para eliminar un usuario por su RUN: eliminarUsuario()
+	Método para listar todos los usuarios: listarUsuarios()
+	Método para listar usuarios por tipo: listarUsuariosPorTipo()
+	Método para listar todas las capacitaciones junto con los datos del cliente asociado: listarCapacitaciones()
 
 ## Instalación
 1. Accede al repositorio con este link:
