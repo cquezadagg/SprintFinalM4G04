@@ -1,4 +1,14 @@
 package main;
+/**
+ * Esta clase hereda de Usuario y representa a un profesional que trabaja en la empresa. 
+ * Además de los atributos heredados, contiene información específica sobre el profesional,
+ * como su título y fecha de ingreso.
+ * 
+ * 
+ * @version 1.0 (27-08-2024)
+ *  
+ * @author Rodrigo Rojas, Jorge Montoya, Ana Andrade, Carlos Quezada y Rodrigo Gonzales.
+ */
 
 /*
  * 2. Principio Abierto/Cerrado(O):
@@ -8,59 +18,49 @@ package main;
  * afecten a la clase "Usuario" base.
  */
 
-public class Profesional extends Usuario{
-	private String titulo;
-	private String fechaIngreso;
+public class Profesional extends Usuario {
+    private String titulo;
+    private String fechaIngreso;
 
-	// Constructor sin parámetros
-	public Profesional() {}
+    // Constructor con validaciones
+    public Profesional(String nombre, String fechaNacimiento, int run, String titulo, String fechaIngreso) {
+        super(nombre, fechaNacimiento, run);
+        setTitulo(titulo);
+        setFechaIngreso(fechaIngreso);
+    }
 
-	// Constructor con todos los parámetros
-	   public Profesional(String nombre, String fechaDeNacimiento, int run, String titulo, String fechaIngreso) {
-		    super(nombre, fechaDeNacimiento, run);
-	        setTitulo(titulo); // Validación dentro del setter
-	        setFechaIngreso(fechaIngreso); // Validación dentro del setter
-	    }
-
-	// Métodos accesores (getters) y mutadores(setters).
-	public String getTitulo() {
-		return titulo;
-	}
-
+    // Validación y asignación del título
     public void setTitulo(String titulo) {
-        if (titulo != null && titulo.length() >= 10 && titulo.length() <= 50) {
-            this.titulo = titulo;
-        } else {
+        if (titulo == null || titulo.length() < 10 || titulo.length() > 50) {
             throw new IllegalArgumentException("El título debe tener entre 10 y 50 caracteres.");
         }
+        this.titulo = titulo;
     }
 
-	public String getFechaIngreso() {
-		return fechaIngreso;
-	}
+    public String getTitulo() {
+        return titulo;
+    }
 
+    // Validación y asignación de la fecha de ingreso
     public void setFechaIngreso(String fechaIngreso) {
-        if (fechaIngreso != null) {
-            this.fechaIngreso = fechaIngreso;
-        } else {
-            throw new IllegalArgumentException("La fecha de ingreso es obligatoria.");
+        if (fechaIngreso == null || !fechaIngreso.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            throw new IllegalArgumentException("La fecha de ingreso debe estar en el formato DD/MM/AAAA.");
         }
+        this.fechaIngreso = fechaIngreso;
     }
-	
-	// Sobrescribir el método analizarUsuario
-	@Override
-	public void analizarUsuario() {
-		super.analizarUsuario();
-		System.out.println("Título: " + titulo);
-		System.out.println("Fecha de Ingreso: " + fechaIngreso);
- 
-}
+
+    public String getFechaIngreso() {
+        return fechaIngreso;
+    }
 
     @Override
     public String toString() {
-        return "Profesional {" +
-                "Título='" + titulo + '\'' +
-                ", Fecha de Ingreso='" + fechaIngreso + '\'' +
+        return "Profesional{" +
+                "titulo='" + titulo + '\'' +
+                ", fechaIngreso='" + fechaIngreso + '\'' +
+                ", nombre='" + getNombre() + '\'' +
+                ", fechaNacimiento='" + getFechaNacimiento() + '\'' +
+                ", run=" + getRun() +
                 '}';
-	}
+    }
 }

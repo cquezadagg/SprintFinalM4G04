@@ -1,4 +1,14 @@
 package main;
+/**
+ * Esta clase hereda de Usuario y representa a un cliente de la empresa.
+ * Además de los atributos heredados, contiene información específica sobre el cliente,
+ * como el RUT, nombres, apellidos, teléfono, AFP, sistema de salud, dirección, comuna y edad.
+ * 
+ * 
+ * @version 1.0 (27-08-2024)
+ *  
+ * @author Rodrigo Rojas, Jorge Montoya, Ana Andrade, Carlos Quezada y Rodrigo Gonzales.
+ */
 
 /*
  * 2. Principio Abierto/Cerrado(O):
@@ -7,181 +17,140 @@ package main;
  * específicos para cada tipo de usuario, pero están cerradas para modificaciones que 
  * afecten a la clase "Usuario" base.
  */
-
-public class Cliente extends Usuario{
+public class Cliente extends Usuario {
     private int rut;
-    private String nombres;
     private String apellidos;
     private String telefono;
     private String afp;
-    private int sistemaSalud;
+    private int sistemaSalud; // 1 para Fonasa, 2 para Isapre
     private String direccion;
     private String comuna;
     private int edad;
-    
-    // este es el constructor sin parámetros
-    public Cliente() {
+
+    // Constructor con validaciones
+    public Cliente(String nombre, String fechaNacimiento, int run, int rut, String nombres, String apellidos, String telefono, String afp, int sistemaSalud, String direccion, String comuna, int edad) {
+        super(nombre, fechaNacimiento, run);
+        setRut(rut);
+        setNombre(nombres);  // Validación realizada en la clase padre
+        setApellidos(apellidos);
+        setTelefono(telefono);
+        setAfp(afp);
+        setSistemaSalud(sistemaSalud);
+        setDireccion(direccion);
+        setComuna(comuna);
+        setEdad(edad);
     }
 
-    public Cliente(int rut, String nombres, String apellidos, String telefono, String afp, int sistemaSalud, String direccion, String comuna, int edad) {
-        setRut(rut); // Validación dentro del setter
-        setNombres(nombres); // Validación dentro del setter
-        setApellidos(apellidos); // Validación dentro del setter
-        setTelefono(telefono); // Validación dentro del setter
-        setAfp(afp); // Validación dentro del setter
-        setSistemaSalud(sistemaSalud); // Validación dentro del setter
-        setDireccion(direccion); // Validación dentro del setter
-        setComuna(comuna); // Validación dentro del setter
-        setEdad(edad); // Validación dentro del setter
-    }
-
- // Métodos accesores (getters) y mutadores(setters).
-    public int getRut() {
-		return rut;
-	}
-
+    // Validación y asignación del RUT
     public void setRut(int rut) {
-        if (rut > 0 && rut < 99999999) {
-            this.rut = rut;
-        } else {
+        if (rut <= 0 || rut >= 99999999) {
             throw new IllegalArgumentException("El RUT debe ser un número menor a 99.999.999.");
         }
+        this.rut = rut;
     }
 
-	public String getNombres() {
-		return nombres;
-	}
-
-    public void setNombres(String nombres) {
-        if (nombres != null && nombres.length() >= 5 && nombres.length() <= 30) {
-            this.nombres = nombres;
-        } else {
-            throw new IllegalArgumentException("Los nombres deben tener entre 5 y 30 caracteres.");
-        }
+    public int getRut() {
+        return rut;
     }
 
-
-	public String getApellidos() {
-		return apellidos;
-	}
-
+    // Validación y asignación de los apellidos
     public void setApellidos(String apellidos) {
-        if (apellidos != null && apellidos.length() >= 5 && apellidos.length() <= 30) {
-            this.apellidos = apellidos;
-        } else {
+        if (apellidos == null || apellidos.length() < 5 || apellidos.length() > 30) {
             throw new IllegalArgumentException("Los apellidos deben tener entre 5 y 30 caracteres.");
         }
+        this.apellidos = apellidos;
     }
 
-	public String getTelefono() {
-		return telefono;
-	}
+    public String getApellidos() {
+        return apellidos;
+    }
 
+    // Validación y asignación del teléfono
     public void setTelefono(String telefono) {
-        if (telefono != null && !telefono.isEmpty()) {
-            this.telefono = telefono;
-        } else {
+        if (telefono == null || telefono.isEmpty()) {
             throw new IllegalArgumentException("El teléfono es obligatorio.");
         }
+        this.telefono = telefono;
     }
 
-	public String getAfp() {
-		return afp;
-	}
+    public String getTelefono() {
+        return telefono;
+    }
 
+    // Validación y asignación del AFP
     public void setAfp(String afp) {
-        if (afp != null && afp.length() >= 4 && afp.length() <= 30) {
-            this.afp = afp;
-        } else {
-            throw new IllegalArgumentException("La AFP debe tener entre 4 y 30 caracteres.");
+        if (afp == null || afp.length() < 4 || afp.length() > 30) {
+            throw new IllegalArgumentException("El AFP debe tener entre 4 y 30 caracteres.");
         }
+        this.afp = afp;
     }
 
-	public int getSistemaSalud() {
-		return sistemaSalud;
-	}
+    public String getAfp() {
+        return afp;
+    }
 
+    // Validación y asignación del sistema de salud
     public void setSistemaSalud(int sistemaSalud) {
-        if (sistemaSalud == 1 || sistemaSalud == 2) {
-            this.sistemaSalud = sistemaSalud;
-        } else {
+        if (sistemaSalud != 1 && sistemaSalud != 2) {
             throw new IllegalArgumentException("El sistema de salud debe ser 1 (Fonasa) o 2 (Isapre).");
         }
+        this.sistemaSalud = sistemaSalud;
     }
 
-	public String getDireccion() {
-		return direccion;
-	}
+    public int getSistemaSalud() {
+        return sistemaSalud;
+    }
 
+    // Validación y asignación de la dirección
     public void setDireccion(String direccion) {
-        if (direccion != null && direccion.length() <= 70) {
-            this.direccion = direccion;
-        } else {
-            throw new IllegalArgumentException("La dirección debe tener un máximo de 70 caracteres.");
+        if (direccion != null && direccion.length() > 70) {
+            throw new IllegalArgumentException("La dirección no puede tener más de 70 caracteres.");
         }
+        this.direccion = direccion;
     }
 
-	public String getComuna() {
-		return comuna;
-	}
+    public String getDireccion() {
+        return direccion;
+    }
 
+    // Validación y asignación de la comuna
     public void setComuna(String comuna) {
-        if (comuna != null && comuna.length() <= 50) {
-            this.comuna = comuna;
-        } else {
-            throw new IllegalArgumentException("La comuna debe tener un máximo de 50 caracteres.");
+        if (comuna != null && comuna.length() > 50) {
+            throw new IllegalArgumentException("La comuna no puede tener más de 50 caracteres.");
         }
+        this.comuna = comuna;
     }
-	public int getEdad() {
-		return edad;
-	}
 
+    public String getComuna() {
+        return comuna;
+    }
+
+    // Validación y asignación de la edad
     public void setEdad(int edad) {
-        if (edad >= 0 && edad < 150) {
-            this.edad = edad;
-        } else {
-            throw new IllegalArgumentException("La edad debe ser un número entre 0 y 149.");
+        if (edad < 0 || edad >= 150) {
+            throw new IllegalArgumentException("La edad debe ser un número mayor o igual a 0 y menor a 150.");
         }
-    }
-	//Metodos adicionales
-    public String obtenerNombre() {
-        return nombres + " " + apellidos;
+        this.edad = edad;
     }
 
-    public String obtenerSistemaSalud() {
-        return sistemaSalud == 1 ? "Fonasa" : "Isapre";
+    public int getEdad() {
+        return edad;
     }
-	
-    
- // Sobrescribir el método analizarUsuario
-	@Override
-	public void analizarUsuario() {
-		// TODO Auto-generated method stub
-		super.analizarUsuario();
-        /*
-         * System.out.println("RUT: " + rut);
-        System.out.println("Apellidos: " + apellidos);
-        System.out.println("Teléfono: " + telefono);
-        System.out.println("AFP: " + afp);
-        System.out.println("Sistema de salud: " + (sistemaSalud == 1 ? "Fonasa" : "Isapre"));
-        */
-        System.out.println("Dirección: " + direccion);
-        System.out.println("Comuna: " + comuna);
-        // System.out.println("Edad: " + edad);
-	}
 
-	@Override
+    @Override
     public String toString() {
         return "Cliente{" +
-                "RUT=" + rut +
-                ", Nombres='" + nombres + '\'' +
-                ", Apellidos='" + apellidos + '\'' +
-                ", Teléfono='" + telefono + '\'' +
-                ", AFP='" + afp + '\'' +
-                ", Sistema de Salud=" + sistemaSalud +
-                ", Dirección='" + direccion + '\'' +
-                ", Comuna='" + comuna + '\'' +
-                ", Edad=" + edad +
+                "rut=" + rut +
+                ", apellidos='" + apellidos + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", afp='" + afp + '\'' +
+                ", sistemaSalud=" + sistemaSalud +
+                ", direccion='" + direccion + '\'' +
+                ", comuna='" + comuna + '\'' +
+                ", edad=" + edad +
+                ", nombre='" + getNombre() + '\'' +
+                ", fechaNacimiento='" + getFechaNacimiento() + '\'' +
+                ", run=" + getRun() +
                 '}';
     }
 }
