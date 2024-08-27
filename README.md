@@ -1,6 +1,7 @@
-# Integrantes: Rodrigo Rojas, Jorge Montoya, Ana Andrade, Carlos Quezada y Rodrigo Gonzales.
-## Sprint Final MOD 4.
-Se proporciona un menú para interactuar con el sistema, permitiendo gestionar usuarios y capacitaciones.
+# Integrantes: Rodrigo Rojas, Jorge Montoya, Ana Andrade, Carlos Quezada y Rodrigo Gonzáles.
+## Sistema de Gestión de Consultoría
+Este proyecto es un sistema de gestión para una empresa de consultoría de riesgos. El sistema permite gestionar diferentes tipos de usuarios (Clientes, Profesionales, Administrativos) y llevar un registro detallado de sus actividades y datos relacionados, como capacitaciones, accidentes, visitas en terreno  y revisiones.
+El sistema está desarrollado en Java y está diseñado para facilitar la administración y análisis de datos a través de un menú interactivo en la consola.
 ## Contexto
 En la última década, han aumentado los índices de accidentabilidad, especialmente en las empresas del rubro industrial, minero y construcción.
 Para dar cumplimiento a la normativa y mantener ambientes de trabajo seguros, muchas empresas se ven en la obligación de contratar asesoría profesional, lo cual representa un costo elevado y fomenta la disminución o la no implementación de medidas necesarias para la seguridad.
@@ -21,10 +22,126 @@ Es imprescindible, mantener comunicación con los profesionales en todo momento,
 - Permite la gestion de capacitaciones.
 - Intuitiva y facil de utilizar.
 - Permite reingresar informacion erronea.
+
+El proyecto está compuesto por las siguientes clases:
+1. Usuario
+Clase abstracta que sirve como base para las clases Cliente, Profesional, y Administrativo.
+Atributos:
+    Nombre
+    Fecha de nacimiento
+    RUN
+Métodos:
+    mostrarEdad()
+    analizarUsuario()
+
+2. Cliente (extiende Usuario)
+Atributos:
+    RUT
+    Nombres
+    Apellidos
+    Teléfono
+    AFP
+    Sistema de salud (Fonasa o Isapre)
+    Dirección
+    Comuna
+    Edad
+Métodos:
+    obtenerNombre()
+    obtenerSistemaSalud()
+    analizarUsuario()
+
+3. Profesional (extiende Usuario)
+Atributos:
+		Título
+		Fecha de ingreso
+Métodos:
+		analizarUsuario()
+	
+4. Administrativo (extiende Usuario)
+Atributos:
+		Área
+		Experiencia previa
+Métodos:
+		analizarUsuario()
+	
+5. Capacitación
+Atributos:
+		Identificador
+		RUT cliente
+		Día
+		Hora
+		Lugar
+		Duración
+		Cantidad de asistentes
+Métodos:
+		mostrarDetalle()
+	
+6. Accidente
+Atributos:
+    Identificador del accidente
+   RUT Cliente
+    Día
+    Hora
+    Lugar
+    Origen
+   Consecuencias
+		
+7. VisitaEnTerreno
+Atributos:
+   Identificador de la visita
+   RUT cliente
+   Día
+   Hora
+   Lugar
+   Comentarios
+		
+8. Revisión
+Atributos:
+   Identificador de la revisión
+   Identificador de la visita en terreno
+    Nombre alusivo a la revisión
+   Detalle para revisar
+    Estado (sin problemas, con observaciones, no aprueba)
+		
+9. Contenedor
+Gestiona listas de usuarios y capacitaciones.
+Métodos:
+		almacenarCliente()
+		almacenarProfesional()
+		almacenarAdministrativo()
+		almacenarCapacitación()
+		eliminarUsuario()
+		listarUsuarios()
+		listarUsuariosPorTipo()
+		listarCapacitaciones()
+		
+10. Principal
+
+	Clase principal que ejecuta un menú interactivo para realizar las operaciones sobre los usuarios y capacitaciones.
+## Instalación
+1. Clona el repositorio en tu máquina local.
+2. Navega hasta el directorio del proyecto.
+3. Importa el proyecto dentro del IDE que utilizaras.
 ## Uso
-- Intalar workspace que permita el uso de aplicaciones Java (como Eclipse).
-- Descargar repositorio.
-- Importar en workspace y utilizar.
+Para ejecutar este proyecto, necesitarás tener instalado lo siguiente:
+- Java Development Kit (JDK) 8 o superior.
+- IDE o editor de texto compatible con Java.
+- Git (para manejo del repositorio).
+  
+1. Compilación:
+Compila todas las clases utilizando un IDE como IntelliJ IDEA, Eclipse, o desde la línea de comandos con javac.
+	
+2. Ejecución:
+Ejecuta la clase Principal para iniciar el programa. Se mostrará un menú en la consola con las opciones disponibles para interactuar con el sistema.
+		
+3. Operaciones:
+Almacenar Cliente/Profesional/Administrativo: Ingresa los datos requeridos para cada tipo de usuario.
+Almacenar Capacitación: Registra una nueva capacitación asociada a un cliente.
+Eliminar Usuario: Elimina un usuario de la lista de asesorías basado en su RUN.
+Listar Usuarios: Muestra todos los usuarios registrados.
+Listar Usuarios por Tipo: Filtra los usuarios por su tipo.
+Listar Capacitaciones: Muestra todas las capacitaciones registradas junto con los datos del cliente correspondiente.
+Salir: Termina la ejecución del programa.
 ## Tecnologías Utilizadas
 - Java.
 ## Link al repositorio
